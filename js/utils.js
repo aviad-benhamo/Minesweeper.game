@@ -127,35 +127,35 @@ function shuffleArray(arr) {
  * @param {Array<Array<any>>} board - The game board matrix
  * @param {string} selector - The selector for the <tbody> element
  */
-function renderBoard(board, selector) {
-    var strHTML = ''
-    for (var i = 0; i < board.length; i++) {
-        strHTML += '<tr>'
-        for (var j = 0; j < board[0].length; j++) {
+// function renderBoard(board, selector) {
+//     var strHTML = ''
+//     for (var i = 0; i < board.length; i++) {
+//         strHTML += '<tr>'
+//         for (var j = 0; j < board[0].length; j++) {
 
-            // Get the value for the cell (e.g., '', 'X', 'BOMB')
-            const cellValue = board[i][j]
+//             // Get the value for the cell (e.g., '', 'X', 'BOMB')
+//             const cellValue = board[i][j]
 
-            // Define a class for the cell, e.g., 'cell cell-0-0'
-            const className = `cell cell-${i}-${j}`
+//             // Define a class for the cell, e.g., 'cell cell-0-0'
+//             const className = `cell cell-${i}-${j}`
 
-            strHTML += `<td class="${className}" 
-                            data-i="${i}" 
-                            data-j="${j}"
-                            onclick="cellClicked(this, ${i}, ${j})" >`
+//             strHTML += `<td class="${className}" 
+//                             data-i="${i}" 
+//                             data-j="${j}"
+//                             onclick="cellClicked(this, ${i}, ${j})" >`
 
-            // You might want to render different things based on cellValue
-            // For now, let's just put the value inside
-            strHTML += cellValue
+//             // You might want to render different things based on cellValue
+//             // For now, let's just put the value inside
+//             strHTML += cellValue
 
-            strHTML += `</td>`
-        }
-        strHTML += '</tr>'
-    }
+//             strHTML += `</td>`
+//         }
+//         strHTML += '</tr>'
+//     }
 
-    const elBoard = document.querySelector(selector)
-    elBoard.innerHTML = strHTML
-}
+//     const elBoard = document.querySelector(selector)
+//     elBoard.innerHTML = strHTML
+// }
 
 /**
  * Renders a single cell in the DOM.
@@ -235,36 +235,6 @@ function getEmptyCells(board) {
         }
     }
     return emptyCells
-}
-
-/**
- * Counts neighbors around a specific cell that match a given value.
- * (Classic for Minesweeper - counting adjacent bombs)
- * @param {Array<Array<any>>} board - The game board matrix
- * @param {number} cellI - The row index of the cell
- * @param {number} cellJ - The column index of the cell
- * @param {any} valueToCount - The value to look for in neighbors (e.g., BOMB)
- * @returns {number} - The count of matching neighbors
- */
-function countNeighbors(board, cellI, cellJ, valueToCount) {
-    var count = 0
-    for (var i = cellI - 1; i <= cellI + 1; i++) {
-        // Check row bounds
-        if (i < 0 || i >= board.length) continue
-
-        for (var j = cellJ - 1; j <= cellJ + 1; j++) {
-            // Check col bounds
-            if (j < 0 || j >= board[0].length) continue
-            // Skip self
-            if (i === cellI && j === cellJ) continue
-
-            // Count if the neighbor matches the value
-            if (board[i][j] === valueToCount) {
-                count++
-            }
-        }
-    }
-    return count
 }
 
 /**

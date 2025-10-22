@@ -9,9 +9,22 @@
 </head>
 
 <body onload="onInit()" oncontextmenu="return false;">
-    <table>
-        <tbody class="game-board"></tbody>
-    </table>
+    <div class="main-table">
+
+        <table>
+            <thead>
+                <div class="timer">0.00</div>
+                <div class="counter"></div>
+                <button onclick="onInit()">😊</button>
+            </thead>
+            <tbody class="game-board"></tbody>
+        </table>
+    </div>
+    <div>
+        <button onclick="beginnerLevel()">Beginner</button>
+        <button onclick="mediumLevel()">Medium</button>
+        <button onclick="expertLevel()">Expert</button>
+    </div>
     <footer>Aviad Ben Hamo</footer>
     <script src="js/utils.js"></script>
     <script src="js/game.js"></script>

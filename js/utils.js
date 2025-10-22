@@ -314,9 +314,9 @@ function updateModalText(selector, txt) {
 //     border-radius: 5px;
 
 //     /* Ensures numbers don't jump around */
-//     display: inline-block;
-//     min-width: 60px; 
-//     text-align: right;
+// display: inline-block;
+// min-width: 60px; 
+// text-align: right;
 // } */
 function startTimer(selector) {
     const elTimer = document.querySelector(selector)
@@ -325,7 +325,7 @@ function startTimer(selector) {
     const intervalId = setInterval(() => {
         const elapsedTime = Date.now() - startTime
         // Format to seconds.milliseconds (e.g., 5.037)
-        elTimer.innerText = (elapsedTime / 1000).toFixed(3)
+        elTimer.innerText = (elapsedTime / 1000).toFixed(2)
     }, 37) // Update frequently (e.g., ~30fps) for smooth milliseconds
 
     return intervalId

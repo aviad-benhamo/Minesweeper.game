@@ -8,7 +8,9 @@ body {
     flex-direction: column;
 }
 
-table {
+
+.main-table {
+    /* border: black solid 3px; */
     margin: 100px auto;
 }
 
@@ -42,4 +44,15 @@ footer {
 
 .cell.marked {
     color: black;
+}
+
+
+.timer {
+    /* This font (monospace) makes numbers align nicely */
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-size: 2rem;
+    display: inline-block;
+    min-width: 60px;
+    text-align: right;
 }

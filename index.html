@@ -10,18 +10,18 @@
 </head>
 
 <body onload="onInit()" oncontextmenu="return false;">
+    <button class="theme-toggle-btn" onclick="toggleTheme()">🌓</button>
+
     <div class="main-table">
 
         <div class="game-header">
 
             <div class="game-stats">
-                <div class="timer">0.00</div>
+                <div class="timer"></span></div>
                 <div class="lives"></div>
                 <div class="counter"></div>
             </div>
-
             <button onclick="onInit()" class="smiley"></button>
-
         </div>
 
         <table>
@@ -37,7 +37,6 @@
         <button onclick="mediumLevel()">Medium</button>
         <button onclick="expertLevel()">Expert</button>
     </div>
-
     <footer>Aviad Ben Hamo</footer>
     <script src="js/utils.js"></script>
     <script src="js/game.js"></script>

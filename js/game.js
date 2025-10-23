@@ -121,30 +121,30 @@ function cellClicked(elCell, i, j) {
             var randj = getRandomInt(0, gBoard.length - 1)
             if ((randI === i && randj === j) ||
                 gBoard[randI][randj].isMine) {
-                //if it true it will skip and try again
+                //if it is true it will skip and try again
                 c--
                 continue
             }
             gBoard[randI][randj].isMine = true
         }
 
-
-        //Fixed mines location for testing
-        // gBoard[0][0].isMine = true
-        // gBoard[0][1].isMine = true
-
         setMinesNegsCount(gBoard)
         renderBoard(gBoard)
         elCell = document.querySelector(`.cell-${i}-${j}`)
     }
 
-    //user lost if opened mine
+    //user lost if opened a mine
     if (gBoard[i][j].isMine) {
 
         if (gLives > 0) {
             gLives--
             lives()
             gBoard[i][j].isMistake = true
+            //color the cell in red
+            elCell.classList.add('mistake')
+            setTimeout(() => {
+                elCell.classList.remove('mistake')
+            }, 850)
             return
         } else {
             gGame.isOn = false
@@ -161,6 +161,7 @@ function cellClicked(elCell, i, j) {
                 }
             }
             console.log("USER LOST")
+            //sad smiley
             const elSmiley = document.querySelector(".smiley")
             elSmiley.innerText = `😒`
             return
@@ -205,12 +206,12 @@ function onCellMarked(elCell, i, j) {
         elCell.innerText = originalContent
     }
     minesCounter() //update mines counter
-    checkGameOver() //also check victory
+    checkGameOver() //check victory
     return false
 }
 
 function checkGameOver() {
-    //check victory func
+    //check victory function
     for (var i = 0; i < gBoard.length; i++) {
         for (var j = 0; j < gBoard[i].length; j++) {
             var cell = gBoard[i][j]
@@ -271,7 +272,7 @@ function expandReveal(board, i, j) {
                 continue
             }
 
-            //skip marked\revealed cells
+            //skip marked/revealed cells
             var neighborCell = board[row][col]
             if (neighborCell.isMarked) continue
             if (neighborCell.isRevealed) continue
@@ -282,7 +283,7 @@ function expandReveal(board, i, j) {
             var elNeighborCell = document.querySelector(`.cell-${row}-${col}`)
             elNeighborCell.classList.add('revealed')
 
-            //Recursion - run the function over again for the empty Neighbors cells
+            //Recursion - run the function over again for the empty Neighbor's cells
             if (neighborCell.minesAroundCount === 0) {
                 expandReveal(board, row, col)
             }
@@ -293,4 +294,8 @@ function expandReveal(board, i, j) {
 function lives() {
     const elLives = document.querySelector(".lives")
     elLives.innerText = `Lives: ${gLives}`
+}
+
+function toggleTheme() {
+    document.body.classList.toggle('light-mode')
 }

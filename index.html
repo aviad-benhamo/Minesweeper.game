@@ -11,21 +11,33 @@
 
 <body onload="onInit()" oncontextmenu="return false;">
     <div class="main-table">
-        <div class="lives"></div>
-        <table>
-            <thead>
+
+        <div class="game-header">
+
+            <div class="game-stats">
                 <div class="timer">0.00</div>
+                <div class="lives"></div>
                 <div class="counter"></div>
-                <button onclick="onInit()">😊</button>
-            </thead>
+            </div>
+
+            <button onclick="onInit()" class="smiley"></button>
+
+        </div>
+
+        <table>
             <tbody class="game-board"></tbody>
         </table>
+
     </div>
-    <div>
+
+    <div class="result"></div>
+
+    <div class="level-buttons">
         <button onclick="beginnerLevel()">Beginner</button>
         <button onclick="mediumLevel()">Medium</button>
         <button onclick="expertLevel()">Expert</button>
     </div>
+
     <footer>Aviad Ben Hamo</footer>
     <script src="js/utils.js"></script>
     <script src="js/game.js"></script>

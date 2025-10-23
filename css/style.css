@@ -8,10 +8,29 @@ body {
     flex-direction: column;
 }
 
-
 .main-table {
-    /* border: black solid 3px; */
-    margin: 100px auto;
+    margin: 40px auto 20px auto;
+    padding: 15px;
+    background-color: #4a2d2d;
+    border: 2px solid black;
+}
+
+.game-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #3a2222;
+    border: 2px solid black;
+    gap: 10px;
+}
+
+.game-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
 
 .cell {
@@ -26,11 +45,7 @@ body {
 }
 
 .cell.revealed {
-    width: 40px;
-    height: 40px;
-    text-align: center;
     border: black solid 3px;
-    cursor: pointer;
     color: black;
     background-color: #eee;
 }
@@ -46,13 +61,59 @@ footer {
     color: black;
 }
 
-
-.timer {
-    /* This font (monospace) makes numbers align nicely */
+.timer,
+.lives,
+.counter {
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
-    font-size: 2rem;
-    display: inline-block;
+    font-size: 1.5rem;
     min-width: 60px;
-    text-align: right;
+    background-color: #221515;
+    padding: 5px 10px;
+}
+
+.timer {
+    text-align: center;
+}
+
+.lives {
+    text-align: left;
+}
+
+.counter {
+    text-align: center;
+}
+
+table {
+    margin: 0 auto;
+}
+
+.smiley {
+    width: 45px;
+    height: 45px;
+    background-color: #c0c0c0;
+    border: 2px solid black;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+.level-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.level-buttons button {
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 8px 15px;
+    background-color: #777;
+    color: white;
+    border: 2px solid black;
+    cursor: pointer;
+}
+
+.level-buttons button:hover {
+    background-color: #999;
 }

@@ -28,8 +28,11 @@ function onInit() {
         revealedCount: 0,
         markedCount: 0,
     }
+    //reset DOM
     const elTimer = document.querySelector(".timer")
     elTimer.innerText = "0.00"
+    const elSmiley = document.querySelector(".smiley")
+    elSmiley.innerText = `😊`
     minesCounter()
 
 }
@@ -158,6 +161,8 @@ function cellClicked(elCell, i, j) {
                 }
             }
             console.log("USER LOST")
+            const elSmiley = document.querySelector(".smiley")
+            elSmiley.innerText = `😒`
             return
         }
     }
@@ -177,7 +182,7 @@ function cellClicked(elCell, i, j) {
 }
 
 function onCellMarked(elCell, i, j) {
-    if (gBoard[i][j].isRevealed) return false
+    if (gBoard[i][j].isRevealed) return false //false to make sure right-click will work
     if (gGame.isOn === false) return
     var cell = gBoard[i][j]
     //toggle flags
@@ -220,6 +225,8 @@ function checkGameOver() {
     playSound("victory_sound")
     gGame.isOn = false
     stopTimer(gTimerInterval)
+    const elSmiley = document.querySelector(".smiley")
+    elSmiley.innerText = `😎`
 }
 
 function beginnerLevel() {
@@ -248,7 +255,7 @@ function minesCounter() {
     //Countdown of mines relative to marked flags, must be 0 to win
     const elCounter = document.querySelector(".counter")
     var remainingMines = gLevel.MINES - gGame.markedCount
-    elCounter.innerText = "Remaining Mines: " + remainingMines
+    elCounter.innerText = "Mines: " + remainingMines
 }
 
 function expandReveal(board, i, j) {
@@ -285,5 +292,5 @@ function expandReveal(board, i, j) {
 
 function lives() {
     const elLives = document.querySelector(".lives")
-    elLives.innerText = `${gLives} Lives left`
+    elLives.innerText = `Lives: ${gLives}`
 }

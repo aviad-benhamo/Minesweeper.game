@@ -33,6 +33,9 @@ function onInit() {
     elTimer.innerText = "0.00"
     const elSmiley = document.querySelector(".smiley")
     elSmiley.innerText = `😊`
+
+    resetHintButtons()
+
     minesCounter()
 
 }
@@ -298,4 +301,40 @@ function lives() {
 
 function toggleTheme() {
     document.body.classList.toggle('light-mode')
+}
+
+function onHintClick(elem) {
+    elem.classList.add('disabled')
+    elem.disabled = true
+    var safeCells = []
+    //find safe cells and add them to safecell array
+    for (var i = 0; i < gBoard.length; i++) {
+        for (var j = 0; j < gBoard[i].length; j++) {
+            if (gBoard[i][j].isMarked) continue
+            if (gBoard[i][j].isMine) continue
+            if (gBoard[i][j].isRevealed) continue
+            if (gBoard[i][j].isMistake) continue
+            var safe = { i, j }
+            safeCells.push(safe)
+        }
+    }
+    //Ignore empty array
+    if (safeCells.length > 0) {
+        var randSafeCell = safeCells[getRandomInt(0, safeCells.length - 1)]
+        var elCell = document.querySelector(`.cell-${randSafeCell.i}-${randSafeCell.j}`)
+        elCell.classList.add('safecell')
+        setTimeout(() => {
+            elCell.classList.remove('safecell')
+        }, 1000)
+    }
+}
+
+
+function resetHintButtons() {
+    const elHintBtns = document.querySelectorAll('.safe-cell-btns button')
+    for (var i = 0; i < elHintBtns.length; i++) {
+        var btn = elHintBtns[i]
+        btn.classList.remove('disabled')
+        btn.disabled = false
+    }
 }

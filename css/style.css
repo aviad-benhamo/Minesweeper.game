@@ -55,6 +55,16 @@ body {
     background-color: rgb(88, 50, 50);
 }
 
+.cell.safecell {
+    background-color: rgb(54, 90, 67);
+}
+
+.safe-cell-btns button {
+    width: 65px;
+    border-radius: 10%
+}
+
+
 footer {
     background-color: #333;
     color: blanchedalmond;
@@ -96,12 +106,17 @@ table {
 }
 
 .smiley {
-    width: 45px;
-    height: 45px;
+    width: 50px;
+    height: 50px;
     background-color: #c0c0c0;
     border: 2px solid black;
     cursor: pointer;
     font-size: 1.4rem;
+    border-radius: 75%;
+}
+
+.hint {
+    width: 45px;
     border-radius: 75%;
 }
 
@@ -130,8 +145,8 @@ table {
     position: fixed;
     top: 20px;
     right: 20px;
-    width: 45px;
-    height: 45px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     border: 2px solid #f0f0f0;
     background-color: #4a2d2d;
@@ -145,6 +160,9 @@ table {
 .theme-toggle-btn:hover {
     background-color: #3a2222;
 }
+
+
+
 
 
 /* (Light Mode) */
@@ -186,4 +204,12 @@ body.light-mode .cell.revealed {
 body.light-mode footer {
     background-color: #e0e0e0;
     color: #555;
+}
+
+body.light-mode .cell.mistake {
+    background-color: rgb(88, 50, 50);
+}
+
+body.light-mode .cell.safecell {
+    background-color: rgb(54, 90, 67);
 }

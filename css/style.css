@@ -55,6 +55,10 @@ body {
     background-color: rgb(88, 50, 50);
 }
 
+.lives-count.mistake {
+    color: rgb(88, 50, 50);
+}
+
 .cell.safecell {
     background-color: rgb(54, 90, 67);
 }

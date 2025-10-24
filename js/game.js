@@ -143,9 +143,12 @@ function cellClicked(elCell, i, j) {
             gLives--
             lives()
             gBoard[i][j].isMistake = true
-            //color the cell in red
+            //color the cell and the counter in red
+            var liveCount = document.querySelector(".lives-count")
+            liveCount.classList.add('mistake')
             elCell.classList.add('mistake')
             setTimeout(() => {
+                liveCount.classList.remove('mistake')
                 elCell.classList.remove('mistake')
             }, 850)
             return
@@ -164,11 +167,13 @@ function cellClicked(elCell, i, j) {
                 }
             }
             console.log("USER LOST")
+            playSound("lose")
             //sad smiley
             const elSmiley = document.querySelector(".smiley")
             elSmiley.innerText = `😒`
             return
         }
+
     }
 
     //change to isRevealed
@@ -183,6 +188,7 @@ function cellClicked(elCell, i, j) {
 
     //check victory
     checkGameOver()
+
 }
 
 function onCellMarked(elCell, i, j) {
@@ -295,8 +301,9 @@ function expandReveal(board, i, j) {
 }
 
 function lives() {
+
     const elLives = document.querySelector(".lives")
-    elLives.innerText = `Lives: ${gLives}`
+    elLives.innerHTML = `Lives: <span class="lives-count">${gLives}</span>`
 }
 
 function toggleTheme() {
@@ -304,6 +311,8 @@ function toggleTheme() {
 }
 
 function onHintClick(elem) {
+    if (!gGame.isOn) return
+    //combined with safe-click feat
     elem.classList.add('disabled')
     elem.disabled = true
     var safeCells = []
@@ -328,7 +337,6 @@ function onHintClick(elem) {
         }, 1000)
     }
 }
-
 
 function resetHintButtons() {
     const elHintBtns = document.querySelectorAll('.safe-cell-btns button')

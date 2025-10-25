@@ -86,7 +86,7 @@ function renderBoard(board) {
             }
 
             strHTML += `<td class="${className}" onclick="cellClicked(this, ${i}, ${j})" 
-            oncontextmenu="return onCellMarked(this, ${i}, ${j})">${cellContent}</td>`
+            oncontextmenu="return onCellMarked(this, ${i}, ${j})"><span class="num-color${cellContent}">${cellContent}</span></td>`
         }
         strHTML += '</tr>'
     }
@@ -119,7 +119,7 @@ function setMinesNegsCount(board) {
 }
 
 function cellClicked(elCell, i, j) {
-    if (gGame.isOn === false && gGame.revealedCount > 0) return
+    if (gGame.isOn === false && gGame.revealedCount > 0) return //victory
     if (gBoard[i][j].isMarked) return false
     if (gBoard[i][j].isRevealed) return
     if (gBoard[i][j].isMistake) return
@@ -142,7 +142,7 @@ function cellClicked(elCell, i, j) {
 
         setMinesNegsCount(gBoard)
         renderBoard(gBoard)
-        elCell = document.querySelector(`.cell-${i}-${j}`)
+        elCell = document.querySelector(`.cell-${i}-${j}`) //need to catch it again after board is rendered
     }
 
     //user lost if opened a mine
@@ -175,7 +175,6 @@ function cellClicked(elCell, i, j) {
                     }
                 }
             }
-            console.log("USER LOST")
             playSound("lose")
             //sad smiley
             const elSmiley = document.querySelector(".smiley")
@@ -201,8 +200,8 @@ function cellClicked(elCell, i, j) {
 }
 
 function onCellMarked(elCell, i, j) {
-    if (gBoard[i][j].isRevealed) return false //false to make sure right-click will work
-    if (gGame.isOn === false) return
+    if (gBoard[i][j].isRevealed) return false//false to make sure right-click will work
+    if (gGame.isOn === false) return false
     var cell = gBoard[i][j]
     //toggle flags
     cell.isMarked = !cell.isMarked
@@ -240,7 +239,6 @@ function checkGameOver() {
         }
     }
     //end the game
-    console.log("VICTORY")
     playSound("victory_sound")
     gGame.isOn = false
     stopTimer(gTimerInterval)
@@ -327,7 +325,6 @@ function toggleTheme() {
 function onHintClick(elem) {
     if (!gGame.isOn) return
     //combined with safe-click feat
-    elem.classList.add('disabled')
     elem.disabled = true
     var safeCells = []
     //find safe cells and add them to safecell array
@@ -357,7 +354,6 @@ function resetHintButtons() {
     const elHintBtns = document.querySelectorAll('.safe-cell-btns button')
     for (var i = 0; i < elHintBtns.length; i++) {
         var btn = elHintBtns[i]
-        btn.classList.remove('disabled')
         btn.disabled = false
     }
 }
@@ -365,7 +361,6 @@ function resetHintButtons() {
 function mineExterminator(elem) {
     if (!gGame.isOn) return
     //after first run, disable the button
-    elem.classList.add('disabled')
     elem.disabled = true
 
     //find all mines location and add them to array

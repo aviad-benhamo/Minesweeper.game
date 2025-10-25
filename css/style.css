@@ -10,21 +10,25 @@ body {
 }
 
 .main-table {
-    margin: 40px auto 20px auto;
-    padding: 15px;
+    margin: 20px auto 15px auto;
+    padding: 10px;
     background-color: #4a2d2d;
     border: 2px solid black;
+}
+
+table {
+    margin: 0 auto;
 }
 
 .game-header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 15px;
-    padding: 10px;
+    margin-bottom: 10px;
+    padding: 8px;
     background-color: #3a2222;
     border: 2px solid black;
-    gap: 10px;
+    gap: 8px;
 }
 
 .game-stats {
@@ -34,9 +38,56 @@ body {
     width: 100%;
 }
 
+.timer,
+.lives,
+.counter {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-size: 1.25rem;
+    min-width: 60px;
+    background-color: #221515;
+    padding: 4px 8px;
+}
+
+.lives-count.mistake {
+    color: rgb(88, 50, 50);
+}
+
+.timer {
+    text-align: center;
+}
+
+.lives {
+    text-align: left;
+}
+
+.counter {
+    text-align: center;
+}
+
+.smiley {
+    width: 45px;
+    height: 45px;
+    background-color: #c0c0c0;
+    border: 2px solid black;
+    cursor: pointer;
+    font-size: 1.4rem;
+    border-radius: 75%;
+}
+
+.hint {
+    width: 45px;
+    border-radius: 75%;
+}
+
+.exterminator {
+    width: 45px;
+    border-radius: 75%;
+}
+
 .cell {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     text-align: center;
     color: transparent;
     user-select: none;
@@ -55,91 +106,50 @@ body {
     background-color: rgb(88, 50, 50);
 }
 
-.lives-count.mistake {
-    color: rgb(88, 50, 50);
-}
-
 .cell.safecell {
     background-color: rgb(54, 90, 67);
 }
 
 .safe-cell-btns button {
-    width: 65px;
+    width: 60px;
     border-radius: 10%
-}
-
-
-footer {
-    background-color: #333;
-    color: blanchedalmond;
-    padding: 1rem;
-    margin-top: auto;
 }
 
 .cell.marked {
     color: black;
 }
 
-
-
-.timer,
-.lives,
-.counter {
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
-    font-size: 1.5rem;
-    min-width: 60px;
-    background-color: #221515;
-    padding: 5px 10px;
+.cell.revealed .num-color1 {
+    color: blue;
 }
 
-.timer {
-    text-align: center;
+.cell.revealed .num-color2 {
+    color: green;
 }
 
-.lives {
-    text-align: left;
+.cell.revealed .num-color3 {
+    color: red;
 }
 
-.counter {
-    text-align: center;
+.cell.revealed .num-color4 {
+    color: rgb(205, 177, 50);
 }
 
-table {
-    margin: 0 auto;
-}
-
-.smiley {
-    width: 50px;
-    height: 50px;
-    background-color: #c0c0c0;
-    border: 2px solid black;
-    cursor: pointer;
-    font-size: 1.4rem;
-    border-radius: 75%;
-}
-
-.hint {
-    width: 45px;
-    border-radius: 75%;
-}
-
-.exterminator {
-    width: 45px;
-    border-radius: 75%;
+.cell.revealed .num-color5 {
+    color: orangered;
 }
 
 .level-buttons {
     display: flex;
     justify-content: center;
     gap: 15px;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
 }
 
 .level-buttons button {
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: bold;
-    padding: 8px 15px;
+    padding: 6px 12px;
     background-color: #777;
     color: white;
     border: 2px solid black;
@@ -170,7 +180,12 @@ table {
     background-color: #3a2222;
 }
 
-
+footer {
+    background-color: #333;
+    color: blanchedalmond;
+    padding: 0.5rem;
+    margin-top: auto;
+}
 
 
 
@@ -213,6 +228,7 @@ body.light-mode .cell.revealed {
 body.light-mode footer {
     background-color: #e0e0e0;
     color: #555;
+    padding: 0.5rem;
 }
 
 body.light-mode .cell.mistake {

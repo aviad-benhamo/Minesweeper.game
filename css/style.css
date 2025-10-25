@@ -124,6 +124,11 @@ table {
     border-radius: 75%;
 }
 
+.exterminator {
+    width: 45px;
+    border-radius: 75%;
+}
+
 .level-buttons {
     display: flex;
     justify-content: center;

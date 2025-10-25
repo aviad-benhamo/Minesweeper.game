@@ -11,15 +11,24 @@ var gLevel = {
     MINES: 2,
 }
 
+//Save existing settings to ensure mineExterminator works properly
+var gCurrentLevelSettings = {
+    SIZE: 8,
+    MINES: 14
+}
+
 var gBoard
 var gTimerInterval
 var gLives
 
-
 function onInit() {
+    //reset gLevel based on current settings
+    gLevel = { ...gCurrentLevelSettings }
     if (gTimerInterval) stopTimer(gTimerInterval)
+    //create and render board
     gBoard = buildBoard()
     renderBoard(gBoard)
+    //lives based on board size
     gLives = Math.min((Math.floor(gLevel.MINES / 2)), 3)
     lives()
     //resets
@@ -35,7 +44,6 @@ function onInit() {
     elSmiley.innerText = `😊`
 
     resetHintButtons()
-
     minesCounter()
 
 }
@@ -49,12 +57,11 @@ function buildBoard() {
                 isRevealed: false,
                 isMine: false,
                 isMarked: false,
-                isMistake: false
+                isMistake: false //count lives
             }
         }
     }
-    //print for testing
-    // console.table(board)
+
     return board
 }
 
@@ -63,19 +70,21 @@ function renderBoard(board) {
     for (var i = 0; i < board.length; i++) {
         strHTML += '<tr>'
         for (var j = 0; j < board[0].length; j++) {
-
+            var cell = board[i][j]
             var cellContent = ''
             var className = `cell cell-${i}-${j}`
-            if (board[i][j].isMarked) {
+            //add classes to save exsiting board state
+            if (cell.isRevealed) className += ' revealed'
+            if (cell.isMarked) className += ' marked'
+
+            if (cell.isMarked) {
                 cellContent = '🏴'
-                className += ' marked'
-            } else if (board[i][j].isMine) {
+            } else if (cell.isMine) {
                 cellContent = '💣'
-            } else {
-                if (board[i][j].minesAroundCount > 0) {
-                    cellContent = board[i][j].minesAroundCount
-                }
+            } else if (cell.minesAroundCount > 0) {
+                cellContent = cell.minesAroundCount
             }
+
             strHTML += `<td class="${className}" onclick="cellClicked(this, ${i}, ${j})" 
             oncontextmenu="return onCellMarked(this, ${i}, ${j})">${cellContent}</td>`
         }
@@ -240,24 +249,30 @@ function checkGameOver() {
 }
 
 function beginnerLevel() {
-    gLevel = {
+    gCurrentLevelSettings = {
         SIZE: 4,
         MINES: 2
     }
+    //Deploy the new settings to gLevel
+    gLevel = { ...gCurrentLevelSettings }
+
     return onInit()
 }
 function mediumLevel() {
-    gLevel = {
+    gCurrentLevelSettings = {
         SIZE: 8,
         MINES: 14
     }
+    gLevel = { ...gCurrentLevelSettings }
+
     return onInit()
 }
 function expertLevel() {
-    gLevel = {
+    gCurrentLevelSettings = {
         SIZE: 12,
         MINES: 32
     }
+    gLevel = { ...gCurrentLevelSettings }
     return onInit()
 }
 
@@ -301,7 +316,6 @@ function expandReveal(board, i, j) {
 }
 
 function lives() {
-
     const elLives = document.querySelector(".lives")
     elLives.innerHTML = `Lives: <span class="lives-count">${gLives}</span>`
 }
@@ -319,10 +333,11 @@ function onHintClick(elem) {
     //find safe cells and add them to safecell array
     for (var i = 0; i < gBoard.length; i++) {
         for (var j = 0; j < gBoard[i].length; j++) {
-            if (gBoard[i][j].isMarked) continue
-            if (gBoard[i][j].isMine) continue
-            if (gBoard[i][j].isRevealed) continue
-            if (gBoard[i][j].isMistake) continue
+            var cell = gBoard[i][j]
+            if (cell.isMarked) continue
+            if (cell.isMine) continue
+            if (cell.isRevealed) continue
+            if (cell.isMistake) continue
             var safe = { i, j }
             safeCells.push(safe)
         }
@@ -345,4 +360,42 @@ function resetHintButtons() {
         btn.classList.remove('disabled')
         btn.disabled = false
     }
+}
+
+function mineExterminator(elem) {
+    if (!gGame.isOn) return
+    //after first run, disable the button
+    elem.classList.add('disabled')
+    elem.disabled = true
+
+    //find all mines location and add them to array
+    var mines = []
+    for (var i = 0; i < gBoard.length; i++) {
+        for (var j = 0; j < gBoard[i].length; j++) {
+            if (gBoard[i][j].isMine) {
+                var mine = { i, j }
+                mines.push(mine)
+            }
+        }
+    }
+    //On Beginner level remove just 1 random mine
+    if (mines.length === 2) {
+        var randMineCell = mines[getRandomInt(0, mines.length - 1)]
+        gBoard[randMineCell.i][randMineCell.j].isMine = false
+        gLevel.MINES -= 1
+    } else {
+        for (var i = 0; i < 3; i++) {
+            randMineCell = mines[getRandomInt(0, mines.length - 1)]
+            gBoard[randMineCell.i][randMineCell.j].isMine = false
+            //remove that object to avoid duplicates
+            mines.splice(randMineCell, 1)
+            gLevel.MINES -= 1
+        }
+    }
+    //recalculate mins negs counts
+    setMinesNegsCount(gBoard)
+    //update mines counter
+    minesCounter()
+    //render the updated board
+    renderBoard(gBoard)
 }
